@@ -18,6 +18,7 @@ purple_random=random.choice(os.listdir("wordbanks/purple"))
 
 
 def actual_game():
+    print("Welcomne to today's connections!!!!!!! ")
     categories={
         "yellow": gencat("yellow/"+yellow_random),
         "green": gencat("green/"+green_random),
@@ -38,21 +39,44 @@ def actual_game():
     ]
     random.shuffle(s)
     print(s)
-    for i  in range(0, 4):
-        your_guess_word= input().lower()
-        for color in categories:
-            if your_guess_word in categories[color]:
-                correct_guesses[color].append(your_guess_word)
-    for color in correct_guesses:
-        if len(correct_guesses[color])==4:
-            print("This means you did it for "+color)
-        elif len(correct_guesses[color])==3:
-            print("1 away for "+ color)
-        else:
-            print("nope, for "+color)
-
-        
+    lives=4
+    previousCount = 0
     
+    while lives>0:
+        for i  in range(0, 4):
+            your_guess_word= input().lower()
+            for color in categories:
+                if your_guess_word in categories[color]:
+                    correct_guesses[color].append(your_guess_word)
+        counter=0
+        for color in correct_guesses:
+            if len(set(correct_guesses[color]))==4:
+                counter += 1
+                print("This means you did it for "+color)
+                print(lives)
+                if color=="yellow":
+                    print("The catageory was: "+yellow_random)
+                elif color=="green":
+                    print("The category was: "+ green_random)
+                elif color=="blue":
+                    print("The category was: " + blue_random)
+                elif color=="purple":
+                    print("The category was: " + purple_random)
+                else:
+                    print("huh? ")
+            elif len(correct_guesses[color])==3:
+                print("1 away for "+ color)
+            else:
+                print("nope, for "+color)
+
+        if previousCount==counter:
+            lives-=1
+            print("Chances ", lives)
+        previousCount = counter
+        if counter==4:
+            print("All answers: "+ str(categories))
+    
+    print("All answers: "+ str(categories))
 actual_game()
 
 
