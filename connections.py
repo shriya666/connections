@@ -38,7 +38,10 @@ def actual_game():
     *categories["purple"],
     ]
     random.shuffle(s)
-    print(s)
+    for i in range(len(s)):
+        if i%4== 0 and i!=0:
+            print()
+        print(s[i], end=" ")
     lives=4
     previousCount = 0
     
